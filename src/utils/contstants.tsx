@@ -18,6 +18,9 @@ import { TbMusic, TbDeviceGamepad2 } from "react-icons/tb";
 import { FaRegCompass } from "react-icons/fa";
 import { GiFilmStrip } from "react-icons/gi";
 
+export const YOUTUBE_DATA_API_KEY = "AIzaSyD5lSEgXvLTAfFdjaygk8YZi5U2FchJwWQ";
+export const YOUTUBE_DATA_API_URL = "https://youtube.googleapis.com/youtube/v3";
+
 export const mainLinks = [
   {
     icon: <MdHomeFilled className="text-xl" />,
