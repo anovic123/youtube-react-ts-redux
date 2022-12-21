@@ -38,7 +38,7 @@ export const parseData = async (items: any[]) => {
    const {
     data: { items: videosData },
   } = await axios.get(
-    `${YOUTUBE_DATA_API_KEY}/videos?part=contentDetails,statistics&id=${videoIds.join(
+    `${YOUTUBE_DATA_API_URL}/videos?part=contentDetails,statistics&id=${videoIds.join(
       ","
     )}&key=${YOUTUBE_DATA_API_KEY}`
   );
