@@ -1,10 +1,15 @@
 import React from 'react';
-import { Navbar } from '../../components';
+import { Navbar, Sidebar } from '../../components';
 
 export const Home = () => {
   return (
-    <>
-      <Navbar />
-    </>
+    <div className="max-h-screen overflow-hidden">
+      <div style={{height: "7.5vh"}}>
+        <Navbar />
+      </div>
+      <div className="flex" style={{height: "92.5vh"}}>
+        <Sidebar />
+      </div>
+    </div>
   )
 }
