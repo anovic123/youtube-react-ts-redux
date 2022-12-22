@@ -1,7 +1,7 @@
 import React from 'react';
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useNavigate } from 'react-router-dom';
-import { Navbar, Sidebar, Spinner } from '../../components'
+import { Navbar, SearchCard, Sidebar, Spinner } from '../../components'
 import { useAppDispatch, useAppSelector } from '../../hook/hook';
 import { getSearchPageVideos } from '../../redux/slices/youtube/getSearchPageVideosAPI';
 import { clearVideos } from '../../redux/slices/youtube/youtubeSlice';
@@ -41,7 +41,7 @@ export const Search = () => {
               {videos.map((item: HomePageVideos) => {
                 return (
                   <div className="my-5">
-                    <div></div>
+                    <SearchCard data={item} key={item.videoId} />
                   </div>
                 );
               })}
