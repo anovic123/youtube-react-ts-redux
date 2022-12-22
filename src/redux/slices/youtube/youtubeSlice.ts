@@ -3,6 +3,7 @@ import { InitialState } from '../../../types';
 import { RootState } from '../../store';
 import { getHomePageVideos } from './getHomePageVideosAPI';
 import { getSearchPageVideos } from './getSearchPageVideosAPI';
+import { getRecommendedVideos } from './getRecommendedVideos';
 
 const initialState:InitialState = {
   videos: [],
@@ -37,6 +38,9 @@ const youtubeSlice = createSlice({
       state.videos = action.payload.parsedData;
       state.nextPageToken = action.payload.nextPageToken;
     })
+    builder.addCase(getRecommendedVideos.fulfilled, (state, action) => {
+      state.recommendedVideos = action.payload.parsedData;
+    });
   })
 })
 
