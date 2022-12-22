@@ -6,7 +6,7 @@ import { RecommendedVideos } from "../../../types";
 import { parseRecommendedData } from "../../../utils";
 
 export const getRecommendedVideos = createAsyncThunk(
-  "yotube/getRecommendedVideos",
+  "youtube/getRecommendedVideos",
   async (videoId: string, { getState }) => {
     const {
       youtube: {

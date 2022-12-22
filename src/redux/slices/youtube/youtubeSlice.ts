@@ -3,7 +3,8 @@ import { InitialState } from '../../../types';
 import { RootState } from '../../store';
 import { getHomePageVideos } from './getHomePageVideosAPI';
 import { getSearchPageVideos } from './getSearchPageVideosAPI';
-import { getRecommendedVideos } from './getRecommendedVideos';
+import { getRecommendedVideos } from './getRecommendedVideosAPI';
+import { getVideoDetails } from './getVideoDetailsAPI';
 
 const initialState:InitialState = {
   videos: [],
@@ -27,17 +28,20 @@ const youtubeSlice = createSlice({
     },
     clearSearchTerm: (state) => {
       state.searchTerm = "";
-    }
+    },
   },
   extraReducers:(builder => {
     builder.addCase(getHomePageVideos.fulfilled, (state, action) => {
       state.videos = action.payload.parsedData;
       state.nextPageToken = action.payload.nextPageToken;
-    })
+    });
     builder.addCase(getSearchPageVideos.fulfilled, (state, action) => {
       state.videos = action.payload.parsedData;
       state.nextPageToken = action.payload.nextPageToken;
-    })
+    });
+    builder.addCase(getVideoDetails.fulfilled, (state, action) => {
+      state.currentPlaying = action.payload;
+    });
     builder.addCase(getRecommendedVideos.fulfilled, (state, action) => {
       state.recommendedVideos = action.payload.parsedData;
     });

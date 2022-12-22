@@ -25,9 +25,9 @@ export const Card: React.FC<CardProps> = ({ data }) => {
         </div>
         <div>
           <h3>
-            <a href="#" className="line-clamp-2">
+            <Link to={`/watch/${data.videoId}`} className="line-clamp-2">
               {data.videoTitle}
-            </a>
+            </Link>
           </h3>
           <div className="text-sm text-gray-400">
             <div>
