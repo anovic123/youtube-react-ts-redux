@@ -7,62 +7,62 @@ import { timeSince } from './timeSince';
 
 export const parseData = async (items: any[]) => {
   try {
-    const videoIds: string[] = []
-    const channelIds: string[] = []
+    const videoIds: string[] = [];
+    const channelIds: string[] = [];
     items.forEach(
       (item: { snippet: { channelId: string }; id: { videoId: string } }) => {
         channelIds.push(item.snippet.channelId);
         videoIds.push(item.id.videoId);
       }
-  );
-   const {
-    data: { items: channelsData },
-   } = await axios.get(
-    `${YOUTUBE_DATA_API_URL}/channels?part=snippet,contentDetails&id=${channelIds.join(
-      ","
-    )}&key=${YOUTUBE_DATA_API_KEY}`
-   );
+    );
 
-   const parsedChannelsData: { id: string; image: string }[] = [];
-   channelsData.forEach(
-     (channel: {
-       id: string;
-       snippet: { thumbnails: { default: { url: string } } };
-     }) =>
-       parsedChannelsData.push({
-         id: channel.id,
-         image: channel.snippet.thumbnails.default.url,
-       })
-   );
+    const {
+      data: { items: channelsData },
+    } = await axios.get(
+      `${YOUTUBE_DATA_API_URL}/channels?part=snippet,contentDetails&id=${channelIds.join(
+        ","
+      )}&key=${YOUTUBE_DATA_API_KEY}`
+    );
 
-   const {
-    data: { items: videosData },
-  } = await axios.get(
-    `${YOUTUBE_DATA_API_URL}/videos?part=contentDetails,statistics&id=${videoIds.join(
-      ","
-    )}&key=${YOUTUBE_DATA_API_KEY}`
-  );
+    const parsedChannelsData: { id: string; image: string }[] = [];
+    channelsData.forEach(
+      (channel: {
+        id: string;
+        snippet: { thumbnails: { default: { url: string } } };
+      }) =>
+        parsedChannelsData.push({
+          id: channel.id,
+          image: channel.snippet.thumbnails.default.url,
+        })
+    );
 
-  const parsedData: HomePageVideos[] = [];
-  items.forEach(
-    (
-      item: {
-        snippet: {
-          channelId: string;
-          title: string;
-          description: string;
-          thumbnails: { medium: { url: string } };
-          publishedAt: Date;
-          channelTitle: string;
-        };
-        id: { videoId: string };
-      },
-      index: number
-    ) => {
-      const { image: channelImage } = parsedChannelsData.find(
-        (data) => data.id === item.snippet.channelId
-      )!;
-      if (channelImage)
+    const {
+      data: { items: videosData },
+    } = await axios.get(
+      `${YOUTUBE_DATA_API_URL}/videos?part=contentDetails,statistics&id=${videoIds.join(
+        ","
+      )}&key=${YOUTUBE_DATA_API_KEY}`
+    );
+    const parsedData: HomePageVideos[] = [];
+    items.forEach(
+      (
+        item: {
+          snippet: {
+            channelId: string;
+            title: string;
+            description: string;
+            thumbnails: { medium: { url: string } };
+            publishedAt: Date;
+            channelTitle: string;
+          };
+          id: { videoId: string };
+        },
+        index: number
+      ) => {
+        const { image: channelImage } = parsedChannelsData.find(
+          (data) => data.id === item.snippet.channelId
+        )!;
+        if (channelImage)
           parsedData.push({
             videoId: item.id.videoId,
             videoTitle: item.snippet.title,
@@ -82,11 +82,11 @@ export const parseData = async (items: any[]) => {
               name: item.snippet.channelTitle,
             },
           });
-    }
-  )
+      }
+    );
 
-  return parsedData;
+    return parsedData;
   } catch (err) {
     console.log(err);
   }
-}
+};
