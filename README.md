@@ -8,7 +8,7 @@
 
 ## Основные Библиотеки
 
-Tailwind, Redux Toolkit, и React Router Dom v6
+Tailwind, Redux Toolkit, и React Router Dom v6;
 
 ## Как все работает
 
